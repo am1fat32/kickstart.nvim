@@ -687,6 +687,24 @@ require('lazy').setup({
       },
       -- Autoinstall languages that are not installed
       auto_install = true,
+      incremental_selection = {
+        enable = true,
+        keymaps = {
+          init_selection = '<C-space>',
+          node_incremental = '<C-space>',
+          scope_incremental = false,
+          node_decremental = '<C-bs>',
+        },
+      },
+      textobjects = {
+        move = {
+          enable = true,
+          goto_next_start = { [']f'] = '@function.outer', [']c'] = '@class.outer' },
+          goto_next_end = { [']F'] = '@function.outer', [']C'] = '@class.outer' },
+          goto_previous_start = { ['[f'] = '@function.outer', ['[c'] = '@class.outer' },
+          goto_previous_end = { ['[F'] = '@function.outer', ['[C'] = '@class.outer' },
+        },
+      },
       highlight = {
         enable = true,
         -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
