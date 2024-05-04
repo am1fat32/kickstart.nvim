@@ -18,6 +18,9 @@ end, {
 return {
   'stevearc/conform.nvim',
   lazy = false,
+  init = function()
+    vim.cmd 'FormatDisable'
+  end,
   keys = {
     {
       '<leader>f',
@@ -26,6 +29,22 @@ return {
       end,
       mode = '',
       desc = '[F]ormat buffer',
+    },
+    {
+      '<leader>tf',
+      function()
+        if vim.g.disable_autoformat then
+          vim.cmd 'FormatEnable'
+          vim.notify('Format (conform) enabled', vim.log.levels.INFO)
+
+          return
+        end
+
+        vim.cmd 'FormatEnable'
+        vim.notify('Format (conform) disabled', vim.log.levels.INFO)
+      end,
+      mode = 'n',
+      desc = '[T]oggle [F]ormat enable',
     },
   },
   opts = {
