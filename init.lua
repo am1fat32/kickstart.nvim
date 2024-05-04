@@ -109,11 +109,13 @@ require('lazy').setup({
         ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
         ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
         ['<leader>u'] = { name = 'S[U]rround', _ = 'which_key_ignore' },
+        ['<leader>p'] = { name = 'S[P]ectre', _ = 'which_key_ignore' },
       }
       -- visual mode
       require('which-key').register({
         ['<leader>h'] = { 'Git [H]unk' },
         ['<leader>u'] = { 'S[U]rround' },
+        ['<leader>p'] = { name = 'S[P]ectre' },
       }, { mode = 'v' })
     end,
   },
