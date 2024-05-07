@@ -5,8 +5,8 @@ https://learnxinyminutes.com/docs/lua/ - Lua syntax cheatsheet
 https://neovim.io/doc/user/lua-guide.html - Nvim Lua integration
 --]]
 
-require 'custom.options'
-require 'custom.basic-keymaps'
+require 'options'
+require 'basic-keymaps'
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -540,7 +540,8 @@ require('lazy').setup({
       require('nvim-treesitter.configs').setup(opts)
     end,
   },
-  { import = 'custom.plugins' },
+  { import = 'colorscheme' },
+  { import = 'plugins' },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
