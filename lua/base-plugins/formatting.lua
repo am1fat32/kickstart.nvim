@@ -1,6 +1,6 @@
 -- Autoformat
 
-vim.api.nvim_create_user_command('FormatDisable', function(args)
+vim.api.nvim_create_user_command('FormatDisable', function()
   vim.g.disable_autoformat = true
 end, {
   desc = 'Disable autoformat-on-save',
