@@ -33,13 +33,13 @@ return {
       function()
         if vim.g.disable_autoformat then
           vim.cmd 'FormatEnable'
-          vim.notify('Format (conform) enabled', 'info', { title = 'Format' })
+          vim.notify('Format (conform) enabled', vim.log.levels.INFO, { title = 'Format' })
 
           return
         end
 
-        vim.cmd 'FormatEnable'
-        vim.notify('Format (conform) disabled', 'info', { title = 'Format' })
+        vim.cmd 'FormatDisable'
+        vim.notify('Format (conform) disabled', vim.log.levels.INFO, { title = 'Format' })
       end,
       mode = 'n',
       desc = '[T]oggle [F]ormat enable',
