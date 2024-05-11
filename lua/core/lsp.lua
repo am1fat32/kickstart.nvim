@@ -90,12 +90,12 @@ return {
 
 
         -- Go to next diagnostic message.
-        map('<leader>d]', function()
+        map(']d', function()
           vim.cmd 'Lspsaga diagnostic_jump_next'
         end, '[D]iagnostic next message')
 
         -- Go to previous diagnostic message.
-        map('<leader>d[', function()
+        map('[d', function()
           vim.cmd 'Lspsaga diagnostic_jump_prev'
         end, '[D]iagnostic prev message')
 
