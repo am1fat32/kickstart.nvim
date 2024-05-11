@@ -1,4 +1,5 @@
 -- LSP Configuration & Plugins
+-- TODO: Move telecope actions to telecope.lua?! Consider previous commits of this file
 
 return {
   'neovim/nvim-lspconfig',
@@ -14,6 +15,12 @@ return {
     -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
     -- used for completion, annotations and signatures of Neovim apis
     { 'folke/neodev.nvim', opts = {} },
+    {
+      'nvimdev/lspsaga.nvim',
+      config = function()
+        require('lspsaga').setup {}
+      end,
+    },
   },
   config = function()
     --  This function gets run when an LSP attaches to a particular buffer.
@@ -28,45 +35,95 @@ return {
         end
 
         -- Jump to the definition of the word under your cursor.
-        --  This is where a variable was first declared, or where a function is defined, etc.
-        --  To jump back, press <C-t>.
-        map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+        map('<leader>ld', function()
+          vim.cmd 'Lspsaga goto_definition'
+        end, '[L]sp Goto [D]efinition')
 
-        -- Find references for the word under your cursor.
-        map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-
-        -- Jump to the implementation of the word under your cursor.
-        --  Useful when your language has ways of declaring types without an actual implementation.
-        map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+        -- Peek at the definition of the word under your cursor.
+        map('<leader>lD', function()
+          vim.cmd 'Lspsaga peek_definition'
+        end, '[L]sp Peek [D]efinition')
 
         -- Jump to the type of the word under your cursor.
         --  Useful when you're not sure what type a variable is and you want to see
         --  the definition of its *type*, not where it was *defined*.
-        map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
+        map('<leader>lt', function()
+          vim.cmd 'Lspsaga goto_type_definition'
+        end, '[L]sp Goto Type [D]efinition')
 
-        -- Fuzzy find all the symbols in your current document.
-        --  Symbols are things like variables, functions, types, etc.
-        map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+        -- Peek at the type of the word under your cursor.
+        map('<leader>lT', function()
+          vim.cmd 'Lspsaga peek_type_definition'
+        end, '[L]sp Peek Type [D]efinition')
 
-        -- Fuzzy find all the symbols in your current workspace.
-        --  Similar to document symbols, except searches over your entire project.
-        map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+        -- Show all the symbols in your current document.
+        map('<leader>ls', function()
+          vim.cmd 'Lspsaga outline'
+        end, '[L]sp Outline [S]ymbols')
+
+        -- Find references for the word under your cursor.
+        map('<leader>lf', function()
+          vim.cmd 'Lspsaga finder'
+        end, '[L]sp [F]inder')
 
         -- Rename the variable under your cursor.
         --  Most Language Servers support renaming across files, etc.
-        map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+        map('<leader>lr', function()
+          vim.cmd 'Lspsaga rename'
+        end, '[L]sp [R]ename')
 
         -- Execute a code action, usually your cursor needs to be on top of an error
         -- or a suggestion from your LSP for this to activate.
-        map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+        map('<leader>la', function()
+          vim.cmd 'Lspsaga code_action'
+        end, '[L]sp Code [A]ction')
 
-        -- Opens a popup that displays documentation about the word under your cursor
-        --  See `:help K` for why this keymap.
-        map('K', vim.lsp.buf.hover, 'Hover Documentation')
+        -- Show incoming calls for the function under your cursor.
+        map('<leader>li', function()
+          vim.cmd 'Lspsaga incoming_calls'
+        end, '[L]sp [I]ncoming Calls')
 
-        -- WARN: This is not Goto Definition, this is Goto Declaration.
-        --  For example, in C this would take you to the header.
-        map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+        -- Show outgoing calls for the function under your cursor.
+        map('<leader>lo', function()
+          vim.cmd 'Lspsaga outgoing_calls'
+        end, '[L]sp [O]utgoing Calls')
+
+
+        -- Go to next diagnostic message.
+        map('<leader>d]', function()
+          vim.cmd 'Lspsaga diagnostic_jump_next'
+        end, '[D]iagnostic next message')
+
+        -- Go to previous diagnostic message.
+        map('<leader>d[', function()
+          vim.cmd 'Lspsaga diagnostic_jump_prev'
+        end, '[D]iagnostic prev message')
+
+        -- Show diagnostics under your cursor.
+        map('<leader>dc', function()
+          vim.cmd 'Lspsaga show_cursor_diagnostics'
+        end, '[D]iagnostic [C]ursor')
+
+        -- Show line diagnostics.
+        map('<leader>dl', function()
+          vim.cmd 'Lspsaga show_line_diagnostics'
+        end, '[D]iagnostic [L]ine')
+
+        -- Show buffer diagnostics.
+        map('<leader>db', function()
+          vim.cmd 'Lspsaga show_buf_diagnostics'
+        end, '[D]iagnostic [B]uffer')
+
+
+        -- Show workspace diagnostics.
+        map('<leader>dw', function()
+          vim.cmd 'Lspsaga show_workspace_diagnostics'
+        end, '[D]iagnostic [W]orkspace')
+
+        -- Opens a popup that displays documentation about the word under your cursor.
+        map('K', function()
+          vim.cmd 'Lspsaga hover_doc'
+        end, 'Hover Documentation')
 
         -- The following two autocommands are used to highlight references of the
         -- word under your cursor when your cursor rests there for a little while.
