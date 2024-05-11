@@ -1,8 +1,6 @@
 --  See `:help lua-guide-autocommands`
 
 -- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
@@ -11,3 +9,14 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Enter insert mode when opening a new terminal buffer
+vim.api.nvim_create_autocmd('TermOpen', {
+  desc = 'Enter insert mode when opening a new terminal buffer',
+  group = vim.api.nvim_create_augroup('terminal-init', { clear = true }),
+  pattern = '*',
+  callback = function()
+    if vim.bo.buftype == 'terminal' then
+      vim.api.nvim_feedkeys('i', 'n', true)
+    end
+  end,
+})
