@@ -10,11 +10,8 @@ end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-  { import = 'base-plugins/lsp' },
-  { import = 'base-plugins/treesitter' },
-  { import = 'base-plugins/autocompletion' },
-  { import = 'base-plugins/formatting' },
   { import = 'colorscheme' },
+  { import = 'core' },
   { import = 'plugins' },
 }, {
   ui = {
