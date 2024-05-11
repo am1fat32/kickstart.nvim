@@ -1,5 +1,4 @@
 -- Autoformat
-
 vim.api.nvim_create_user_command('FormatDisable', function()
   vim.g.disable_autoformat = true
 end, {
@@ -9,7 +8,6 @@ end, {
 
 vim.api.nvim_create_user_command('FormatEnable', function()
   vim.g.disable_autoformat = false
-
   require 'mini.notify'
 end, {
   desc = 'Re-enable autoformat-on-save',
@@ -35,13 +33,13 @@ return {
       function()
         if vim.g.disable_autoformat then
           vim.cmd 'FormatEnable'
-          vim.notify('Format (conform) enabled', vim.log.levels.INFO)
+          vim.notify('Format (conform) enabled', 'info', { title = 'Format' })
 
           return
         end
 
         vim.cmd 'FormatEnable'
-        vim.notify('Format (conform) disabled', vim.log.levels.INFO)
+        vim.notify('Format (conform) disabled', 'info', { title = 'Format' })
       end,
       mode = 'n',
       desc = '[T]oggle [F]ormat enable',
