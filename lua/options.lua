@@ -65,3 +65,6 @@ vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
+
+-- Hide cmd line (not needed with fine-cmdline plugin)
+vim.opt.cmdheight = 0
