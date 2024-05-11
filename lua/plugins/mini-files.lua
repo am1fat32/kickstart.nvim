@@ -1,13 +1,31 @@
-local minifiles_toggle = function(...)
-  if not MiniFiles.close() then
-    MiniFiles.open(...)
+local toggle_in_default_mode = function(...)
+  local minifiles = require 'mini.files'
+
+  if minifiles.close() then
+    return
   end
+
+  minifiles.open(...)
+end
+
+local toggle_in_cwd = function()
+  local minifiles = require 'mini.files'
+
+  if minifiles.close() then
+    return
+  end
+
+  minifiles.open(vim.api.nvim_buf_get_name(0))
+  minifiles.reveal_cwd()
 end
 
 return {
   'echasnovski/mini.files',
   version = false,
-  keys = { { '\\', minifiles_toggle, { desc = 'Open MiniFiles' } } },
+  keys = {
+    { '\\', toggle_in_default_mode, { desc = 'Toggle MiniFiles' } },
+    { '<C-\\>', toggle_in_cwd, { desc = 'Toggle MiniFiles (CWD)' } },
+  },
   dependencies = {
     { 'nvim-tree/nvim-web-devicons' },
   },
